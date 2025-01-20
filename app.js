@@ -68,5 +68,5 @@ app.get("/check", async (req, res) => {
 // Iniciar el servidor y la verificación automática
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
-    startAutomaticChecking(10); // Configura la verificación automática cada 10 minutos
+    startAutomaticChecking(0.5); // Configura la verificación automática cada 10 minutos
 });
