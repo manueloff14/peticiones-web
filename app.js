@@ -1,4 +1,8 @@
+const express = require("express");
 const axios = require("axios");
+
+const app = express();
+const PORT = 3000;
 
 // Lista de sitios web que deseas comprobar
 const websites = [
@@ -10,28 +14,54 @@ const websites = [
 
 // Función para hacer peticiones a los sitios web
 async function checkWebsites() {
+    const results = [];
+
     for (const website of websites) {
         try {
             const response = await axios.get(website);
-            console.log(`Sitio: ${website} - Estado: ${response.status}`);
+            results.push({
+                website,
+                status: response.status,
+                message: "Success",
+            });
         } catch (error) {
-            console.error(`Error al acceder a ${website}:`, error.message);
+            results.push({
+                website,
+                status: error.response?.status || "N/A",
+                message: error.message,
+            });
         }
     }
+
+    console.log("Verificación realizada:", results);
+    return results;
 }
 
-// Función para configurar el intervalo de tiempo en minutos
-function startChecking(intervalMinutes) {
-    // Convierte los minutos en milisegundos
+// Configurar la verificación periódica al arrancar el servidor
+function startAutomaticChecking(intervalMinutes = 10) {
     const intervalMilliseconds = intervalMinutes * 60 * 1000;
 
-    // Ejecutar la función cada `intervalMilliseconds` milisegundos
-    setInterval(checkWebsites, intervalMilliseconds);
-
-    // Realizar la primera verificación inmediatamente al ejecutar el script
+    // Ejecutar la primera verificación al iniciar
     checkWebsites();
+
+    // Configurar el intervalo
+    setInterval(async () => {
+        await checkWebsites();
+    }, intervalMilliseconds);
+
+    console.log(
+        `Verificación automática configurada cada ${intervalMinutes} minutos.`
+    );
 }
 
-// Llamar a la función y pasar el número de minutos que deseas
-// Por ejemplo, para ejecutar cada 10 minutos:
-startChecking(10);
+// Endpoint para verificar los sitios web manualmente
+app.get("/check", async (req, res) => {
+    const results = await checkWebsites();
+    res.json({ timestamp: new Date(), results });
+});
+
+// Iniciar el servidor y la verificación automática
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    startAutomaticChecking(1); // Configura la verificación automática cada 10 minutos
+});
