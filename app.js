@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require("axios");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Lista de sitios web que deseas comprobar
 const websites = [
@@ -10,6 +10,7 @@ const websites = [
     "https://cumbre-server-la3g.onrender.com/api/blog/9363628683",
     "https://cumbre-empleo-73ys.onrender.com/9363628683",
     "https://cumbre-home.onrender.com",
+    "https://peticiones-web.onrender.com/"
 ];
 
 // Función para hacer peticiones a los sitios web
@@ -53,6 +54,10 @@ function startAutomaticChecking(intervalMinutes = 10) {
         `Verificación automática configurada cada ${intervalMinutes} minutos.`
     );
 }
+
+app.get("/", (req, res) => {
+    res.send("Hola Mundo");
+});
 
 // Endpoint para verificar los sitios web manualmente
 app.get("/check", async (req, res) => {
