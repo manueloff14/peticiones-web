@@ -10,7 +10,8 @@ const websites = [
     "https://cumbre-server-la3g.onrender.com/api/blog/9363628683",
     "https://cumbre-empleo-73ys.onrender.com/9363628683",
     "https://cumbre-home.onrender.com",
-    "https://peticiones-web.onrender.com/"
+    "https://peticiones-web.onrender.com/",
+    "https://ae-uniandes.onrender.com"
 ];
 
 // Función para hacer peticiones a los sitios web
