@@ -13,7 +13,9 @@ const websites = [
     "https://peticiones-web.onrender.com/",
     "https://ae-uniandes.onrender.com",
     "https://rendaz-shop.onrender.com",
-    "https://peliculas-frontend-zdmj.onrender.com"
+    "https://peliculas-frontend-zdmj.onrender.com",
+    "https://school-frontend-oa18.onrender.com",
+    "https://school-backend-o6b4.onrender.com"
 ];
 
 // Función para hacer peticiones a los sitios web
