@@ -17,8 +17,7 @@ const websites = [
     "https://school-frontend-oa18.onrender.com",
     "https://school-backend-o6b4.onrender.com",
     "https://lunna-home.onrender.com",
-    "https://lunna-backend.onrender.com",
-    "https://panel.lunna.lat"
+    "https://lunna-backend.onrender.com"
 ];
 
 // Función para hacer peticiones a los sitios web
