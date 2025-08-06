@@ -6,20 +6,8 @@ const PORT = process.env.PORT || 3000;
 
 // Lista de sitios web que deseas comprobar
 const websites = [
-    "https://cumbre-ui-buscador-pgam.onrender.com",
-    "https://cumbre-server-la3g.onrender.com/api/blog/9363628683",
-    "https://cumbre-empleo-73ys.onrender.com/9363628683",
-    "https://cumbre-home.onrender.com",
     "https://peticiones-web-mplw.onrender.com",
     "https://ae-uniandes.onrender.com",
-    "https://rendaz-shop.onrender.com",
-    "https://peliculas-frontend-zdmj.onrender.com",
-    "https://school-frontend-oa18.onrender.com",
-    "https://school-backend-o6b4.onrender.com",
-    "https://lunna-home.onrender.com",
-    "https://lunna-backend.onrender.com",
-    "https://panel.lunna.lat",
-    "https://cumbre-home.lunna.lat"
 ];
 
 // Función para hacer peticiones a los sitios web
