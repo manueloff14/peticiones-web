@@ -10,7 +10,7 @@ const websites = [
     "https://cumbre-server-la3g.onrender.com/api/blog/9363628683",
     "https://cumbre-empleo-73ys.onrender.com/9363628683",
     "https://cumbre-home.onrender.com",
-    "https://peticiones-web.onrender.com/",
+    "https://peticiones-web-mplw.onrender.com",
     "https://ae-uniandes.onrender.com",
     "https://rendaz-shop.onrender.com",
     "https://peliculas-frontend-zdmj.onrender.com",
