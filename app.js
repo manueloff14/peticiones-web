@@ -10,13 +10,22 @@ const websites = [
     "https://ae-uniandes.onrender.com",
 ];
 
+let isChecking = false;
+
 // Función para hacer peticiones a los sitios web
 async function checkWebsites() {
+    if (isChecking) {
+        console.log("Verificación ya en curso, se omite esta ejecución.");
+        return [];
+    }
+
+    isChecking = true;
+
     const results = [];
 
     for (const website of websites) {
         try {
-            const response = await axios.get(website);
+            const response = await axios.get(website, { timeout: 2000 }); // 2 segundos
             results.push({
                 website,
                 status: response.status,
@@ -26,12 +35,17 @@ async function checkWebsites() {
             results.push({
                 website,
                 status: error.response?.status || "N/A",
-                message: error.message,
+                message: error.code === 'ECONNABORTED' ? "Timeout (2s)" : error.message,
             });
         }
     }
 
     console.log("Verificación realizada:", results);
+
+    // Limpiar referencias y forzar GC si está disponible
+    isChecking = false;
+    global.gc?.(); // Esto solo funciona si Node se ejecuta con --expose-gc
+
     return results;
 }
 
@@ -39,31 +53,25 @@ async function checkWebsites() {
 function startAutomaticChecking(intervalMinutes = 10) {
     const intervalMilliseconds = intervalMinutes * 60 * 1000;
 
-    // Ejecutar la primera verificación al iniciar
-    checkWebsites();
+    checkWebsites(); // Primera ejecución
 
-    // Configurar el intervalo
     setInterval(async () => {
         await checkWebsites();
     }, intervalMilliseconds);
 
-    console.log(
-        `Verificación automática configurada cada ${intervalMinutes} minutos.`
-    );
+    console.log(`Verificación automática cada ${intervalMinutes} minutos.`);
 }
 
 app.get("/", (req, res) => {
     res.send("Hola Mundo");
 });
 
-// Endpoint para verificar los sitios web manualmente
 app.get("/check", async (req, res) => {
     const results = await checkWebsites();
     res.json({ timestamp: new Date(), results });
 });
 
-// Iniciar el servidor y la verificación automática
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
-    startAutomaticChecking(10); // Configura la verificación automática cada 10 minutos
+    startAutomaticChecking(10);
 });
