@@ -6,7 +6,6 @@ const PORT = process.env.PORT || 3000;
 
 // Lista de sitios web que deseas comprobar
 const websites = [
-    "https://peticiones-web-kx9o.onrender.com/check",
     "https://ae-uniandes.onrender.com",
 ];
 
